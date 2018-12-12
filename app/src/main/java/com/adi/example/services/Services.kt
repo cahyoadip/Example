@@ -1,5 +1,7 @@
 package com.dev.adi.ecosystem.controler
 
+import com.adi.example.model.ResponseAlbum
+import com.adi.example.model.ResponseAlbumPhotos
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -7,10 +9,11 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 class Services {
     //your base url
-    val URL = "https://api.bukalapak.com/"
+    val URL = "https://jsonplaceholder.typicode.com/"
 
     fun create(): ServicesInterface {
         val interceptor = HttpLoggingInterceptor()
@@ -30,24 +33,14 @@ class Services {
 interface ServicesInterface {
 
     //1
-    @GET("")
-    fun get(
-//        @Query("") xx: String,
-//        @Query("") xx: Int
-    ): Call<ResponseBody>
+    @GET("/albums")
+    fun getAlbum(): Call<ArrayList<ResponseAlbum>>
 
-//
-//    //2
-//    @GET("")
-//    fun getDetailProduct(
-//        @Path("") xx: String
-//    ): Call<ResponDetailProduct>
-//
-//    //2
-//    @POST("")
-//    fun replyFeed(
-//        @Path("") xx : Int,
-//        @Path("") xx : Int,
-//        @Body content : JsonObject
-//    ): Call<ResponseTweat>
+
+    //1
+    @GET("/albums/{id}/photos")
+    fun getAlbumPhotos(
+        @Path("id") id: Int
+    ): Call<ArrayList<ResponseAlbumPhotos>>
+
 }
